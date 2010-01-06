@@ -2,6 +2,7 @@ require 'net/http'
 require 'net/https'
 require 'uri'
 require 'rexml/document'
+require 'ahqdomsys/errors'
 
 module AHQDomSys
   module Util
@@ -9,6 +10,14 @@ module AHQDomSys
       attr_accessor :username, :password
 
       def run(args)
+        if @password.nil?
+          raise AHQDomSys::AuthError, "You must supply your AussieHQ Domain System API password"
+        end
+
+        if @username.nil?
+          raise AHQDomSys::AuthError, "You must supply your AussieHQ Domain System username"
+        end
+
         args["uid"] = @username
         args["pw"] = @password
 
@@ -62,6 +71,11 @@ module AHQDomSys
         @code = doc.elements["status/code"].text.to_i
         @short = doc.elements["status/text"].text
         @long = doc.elements["status/description"].text
+        @doc = doc
+      end
+
+      def get_val(path)
+        @doc.elements[path].text
       end
     end
 
