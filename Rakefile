@@ -10,7 +10,7 @@ begin
     gem.email = "tim@sharpe.id.au"
     gem.homepage = "http://github.com/rodjek/ahqdomsys"
     gem.authors = ["Tim Sharpe"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_development_dependency "shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -22,7 +22,7 @@ require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
   test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+  test.verbose = false
 end
 
 begin
